@@ -1,4 +1,4 @@
-# Snake
+# CRUD-tables
 
 ## Run `npm install` to set all dependencies
 
@@ -7,10 +7,7 @@
 ```
 npm run dev
 ```
-### Deployment 
-
-https://snake-game--rainbow-mooncake-8667c4.netlify.app/
 
 ### Technical stack
 
-Vite, React + MUI, typescript, Redux, ESLint, Prettier, Husky, Fire-base as Back-end.
+Vite, React + MUI, typescript, Redux, ESLint, Prettier, Husky
