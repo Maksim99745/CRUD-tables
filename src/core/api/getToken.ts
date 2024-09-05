@@ -1,9 +1,14 @@
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useShowMessage } from '../../hooks/useShowMessage';
 import { HOST } from '../models/Host';
 
+const WRONG_PASSWORD_ERROR_CODE = 2004;
+
 export const useGetToken = () => {
   const showMessage = useShowMessage();
+  const navigate = useNavigate();
+
+  // eslint-disable-next-line consistent-return
   const getToken = async (loginData: LoginFormData) => {
     try {
       const response = await fetch(`${HOST}/ru/data/v3/testmethods/docs/login`, {
@@ -13,26 +18,22 @@ export const useGetToken = () => {
         },
         body: JSON.stringify(loginData),
       });
+
       if (!response.ok) {
         throw new Error('Failed to fetch token');
       }
 
       const result = await response.json();
+      const token = result.data?.token;
 
-      const { token } = result.data;
-
-      if (!token) {
+      if (result.data.error_code === WRONG_PASSWORD_ERROR_CODE) {
         showMessage('Wrong password', 'error');
-        console.error('Wrong password', result);
+        return null;
       }
 
-      if (token) {
-        localStorage.setItem('CRUD-tables', JSON.stringify({ token }));
-        showMessage('Successfully logged in');
-        redirect('/');
-      } else {
-        showMessage('Failed to receive token');
-      }
+      localStorage.setItem('CRUD-tables', JSON.stringify({ token }));
+      showMessage('Successfully logged in');
+      navigate('/');
     } catch (error) {
       showMessage('Error while login in', 'error');
       console.error('Error while login in', error);
