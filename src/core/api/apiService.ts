@@ -1,13 +1,16 @@
-import { HOST } from '../models/Host';
+import { ApiResponse } from '../../models/ApiResponce';
+import { HOST } from '../../models/Host';
+import { getTokenFromLocalStorage } from '../../utils/getTokenFromLocalStorage';
 
 export class ApiService {
-  public static async getTablesData() {
+  public static async getTablesData(): Promise<ApiResponse | null> {
     const token = getTokenFromLocalStorage();
-    let result;
+
     if (!token) {
       console.error('You don"t have token, login in again');
       return null;
     }
+
     try {
       const response = await fetch(`${HOST}/ru/data/v3/testmethods/docs/userdocs/get`, {
         method: 'GET',
@@ -18,12 +21,15 @@ export class ApiService {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch tables data');
+        console.error('Failed to fetch tables data', response.statusText);
+        return null;
       }
-      result = response.json();
+
+      const result = await response.json();
+      return result;
     } catch (error) {
-      console.error('Error while login in', error);
+      console.error('Error while fetching tables data:', error);
+      return null;
     }
-    return result;
   }
 }

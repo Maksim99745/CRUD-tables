@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOST } from '../../../core/models/Host';
 import { useShowMessage } from '../../../hooks/useShowMessage';
+import { HOST } from '../../../models/Host';
 
 const WRONG_PASSWORD_ERROR_CODE = 2004;
 
