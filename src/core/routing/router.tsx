@@ -1,25 +1,34 @@
 import { CircularProgress } from '@mui/material';
 import { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { LoginPage, MainPage, NotFoundPage } from './routing-pages';
+import { LayoutPage, LoginPage, MainPage, NotFoundPage } from './routing-pages';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <Suspense fallback={<CircularProgress />}>
-        <MainPage />
+        <LayoutPage />
       </Suspense>
     ),
-    children: [],
-  },
-  {
-    path: '/login',
-    element: (
-      <Suspense fallback={<CircularProgress />}>
-        <LoginPage />
-      </Suspense>
-    ),
+    children: [
+      {
+        path: '/main',
+        element: (
+          <Suspense fallback={<CircularProgress />}>
+            <MainPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/login',
+        element: (
+          <Suspense fallback={<CircularProgress />}>
+            <LoginPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: '*',

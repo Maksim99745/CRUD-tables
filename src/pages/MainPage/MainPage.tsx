@@ -1,20 +1,3 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 export default function MainPage() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('CRUD-tables');
-
-    if (!token) {
-      navigate('/login');
-    }
-  }, [navigate]);
-
-  return (
-    <div>
-      <h2>CRUD-Tables</h2>
-    </div>
-  );
+  return <div className="text-4xl font-bold text-blue-500">Hello, Tailwind!</div>;
 }
