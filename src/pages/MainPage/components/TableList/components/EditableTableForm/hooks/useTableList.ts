@@ -1,6 +1,6 @@
 import { Control, useFieldArray } from 'react-hook-form';
-import { DEFAULT_TABLE_DATA } from '../../../../../models/DefaultTableData';
-import { TableDataList } from '../../../../../models/TableData';
+import { DEFAULT_TABLE_DATA } from '../../../../../../../models/DefaultTableData';
+import { TableDataList } from '../../../../../../../models/TableData';
 
 interface UseTableList {
   control: Control<TableDataList>;

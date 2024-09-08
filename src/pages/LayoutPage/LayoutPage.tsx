@@ -29,7 +29,7 @@ export default function LayoutPage() {
         justifyContent="space-between"
         alignItems="center"
         padding={2}
-        className="bg-gray-100 fixed top-0 left-0 w-full z-10"
+        className="bg-gray-100 sticky top-0 left-0 w-full z-10"
       >
         <Typography variant="h5">CRUD-Tables</Typography>
         <Button variant="contained" color="secondary" onClick={handleLogout}>
@@ -37,7 +37,7 @@ export default function LayoutPage() {
         </Button>
       </Stack>
 
-      <Stack className="flex-grow pt-16 justify-center items-center w-full">
+      <Stack className="flex-grow p-4 justify-center items-center w-full">
         <Outlet />
       </Stack>
 
@@ -46,7 +46,7 @@ export default function LayoutPage() {
         justifyContent="center"
         alignItems="center"
         padding={2}
-        className="bg-gray-100 fixed bottom-0 left-0 w-full"
+        className="bg-gray-100 sticky bottom-0 left-0 w-full"
       >
         <Link
           href="https://github.com/Maksim99745"
