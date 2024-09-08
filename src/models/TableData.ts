@@ -1,5 +1,5 @@
 export interface TableData {
-  id?: string;
+  id: string;
   companySigDate: string;
   companySignatureName: string;
   documentName: string;

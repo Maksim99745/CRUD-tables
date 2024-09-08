@@ -1,19 +1,23 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, useEventCallback } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ElementType } from 'react';
 import { useModalState } from '../../../../../../hooks/useModalState';
+import { TableData } from '../../../../../../models/TableData';
+import { EditableTableForm } from '../EditableTableForm/EditableTableForm';
 
 export interface TableEditDialogProps {
-  isNewTable: boolean;
+  tableData?: TableData;
   openControl: ElementType;
   disabled?: boolean;
+  refetchTablesData: () => void;
 }
 
-export function TableEditDialog({ isNewTable, openControl: OpenControl, disabled = false }: TableEditDialogProps) {
+export function TableEditDialog({
+  openControl: OpenControl,
+  refetchTablesData,
+  disabled = false,
+  tableData,
+}: TableEditDialogProps) {
   const { visible, show, close } = useModalState();
-
-  const handleSubmitTable = useEventCallback(() => {
-    close();
-  });
 
   return (
     <Box sx={{ ml: 'auto' }}>
@@ -25,14 +29,13 @@ export function TableEditDialog({ isNewTable, openControl: OpenControl, disabled
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title" alignSelf="center">
-          {isNewTable ? 'Add new table' : 'Update table'}
+          {tableData ? 'Update table' : 'Add new table'}
         </DialogTitle>
-        <DialogContent>dddd</DialogContent>
+        <DialogContent>
+          <EditableTableForm refetchTablesData={refetchTablesData} closeDialog={close} tableData={tableData} />
+        </DialogContent>
         <DialogActions>
           <Button onClick={close}>Cancel</Button>
-          <Button onClick={handleSubmitTable} autoFocus>
-            Save
-          </Button>
         </DialogActions>
       </Dialog>
     </Box>

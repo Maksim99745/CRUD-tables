@@ -1,14 +1,10 @@
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { Button, ButtonProps } from '@mui/material';
+import { Button, ButtonProps, CircularProgress, Typography } from '@mui/material';
 import { TableData } from '../../../../models/TableData';
-import { EditableTable } from './components/EditableTable/EditableTable';
-import { TableEditDialog } from './components/EditableTableDialog/EditableTableDialog';
+import { ReadOnlyTable } from './components/ReadOnlyTable/ReadOnlyTable';
+import { TableEditDialog } from './components/TableEditDialog/TableEditDialog';
 
-interface TableListProps {
-  tablesData: TableData[];
-}
-
-function EditTableButton(props: ButtonProps) {
+function AddTableButton(props: ButtonProps) {
   return (
     <Button
       startIcon={<AddBoxIcon />}
@@ -22,32 +18,28 @@ function EditTableButton(props: ButtonProps) {
     </Button>
   );
 }
+interface TableListProps {
+  tablesData: TableData[];
+  isLoading: boolean;
+  refetchTablesData: () => void;
+}
 
-export function TableList({ tablesData }: TableListProps) {
-  // const {
-  //   register,
-  //   control,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<TableDataList>({
-  //   resolver: zodResolver(crudTableSchema),
-  //   mode: 'all',
-  //   defaultValues: { tableDataList: tablesData },
-  // });
-
+export function TableList({ tablesData, isLoading, refetchTablesData }: TableListProps) {
   return (
-    <div className="flex flex-col gap-4">
-      <TableEditDialog isNewTable openControl={EditTableButton} />
-      <div className="flex">
-        {/* <form className="grid grid-cols-1 md:grid-cols-3 gap-4" onSubmit={handleSubmit(onSubmit)}> */}
-        {tablesData.map((table, index) => (
-          <div key={table.id || crypto.randomUUID()} className="flex p-4 bg-white shadow-md rounded-lg">
-            <EditableTable index={index} tableData={table} />
-            {/* <CrudTable index={index} tableData={table} /> */}
-          </div>
+    <div className="flex flex-col gap-4 items-center">
+      <TableEditDialog refetchTablesData={refetchTablesData} openControl={AddTableButton} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {tablesData.map((table) => (
+          <ReadOnlyTable
+            refetchTablesData={refetchTablesData}
+            isLoading={isLoading}
+            key={table.id || crypto.randomUUID()}
+            tableData={table}
+          />
         ))}
-        {/* </form> */}
       </div>
+      {tablesData.length === 0 && !isLoading && <Typography variant="h3">There will be placed tables data</Typography>}
+      {tablesData.length === 0 && isLoading && <CircularProgress />}
     </div>
   );
 }
