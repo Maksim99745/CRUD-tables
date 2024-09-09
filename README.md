@@ -10,7 +10,7 @@ npm run dev
 
 ### Technical stack
 
-Vite, React + MUI, typescript, Redux, ESLint, Prettier, Husky
+Vite, React + MUI, typescript, ESLint, Prettier, Husky
 
 ### Deploy
 
