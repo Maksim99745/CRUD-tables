@@ -14,5 +14,4 @@ Vite, React + MUI, typescript, ESLint, Prettier, Husky
 
 ### Deploy
 
-[https://develop--incandescent-melba-e31025.netlify.app/main
-](https://incandescent-melba-e31025.netlify.app/login)
+https://incandescent-melba-e31025.netlify.app/login
