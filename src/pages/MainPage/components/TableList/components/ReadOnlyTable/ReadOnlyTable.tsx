@@ -31,6 +31,7 @@ interface ReadOnlyTableProps {
 
 export function ReadOnlyTable({ tableData, isLoading, refetchTablesData }: ReadOnlyTableProps) {
   const [isBusy, setIsBusy] = useState(false);
+
   const removeTable = async (id: string) => {
     setIsBusy(true);
     await ApiService.removeTableData(id);

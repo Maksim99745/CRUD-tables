@@ -1,13 +1,16 @@
 import dayjs, { Dayjs } from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import utc from 'dayjs/plugin/utc';
 import { z } from 'zod';
 
 const validateDate = (date: dayjs.Dayjs) => dayjs.isDayjs(date) && date.isValid();
-dayjs.extend(utc);
 
+dayjs.extend(utc);
+dayjs.extend(isSameOrBefore);
 export const dateSchema = z
   .custom<Dayjs | string>()
   .refine((date) => validateDate(dayjs.utc(date)), 'Date is invalid')
+  .refine((date) => dayjs.utc(date).isSameOrBefore(dayjs.utc(), 'day'), 'Date cannot be in the future')
   .transform((value) => {
     const transformedDate = dayjs.utc(value).toISOString();
     return transformedDate;
